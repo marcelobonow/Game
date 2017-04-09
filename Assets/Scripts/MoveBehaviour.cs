@@ -9,6 +9,11 @@ public class MoveBehaviour : MonoBehaviour {
     private Rigidbody rb;
     private Vector2 oldMousePosition;
 
+    private void Start()
+    {
+        rb = gameObject.GetComponent<Rigidbody>();
+    }
+
     void Update () {
         //normally the velocity is zero, if any button was pressed
         //the velocity changes.
