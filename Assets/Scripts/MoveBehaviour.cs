@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 
 public class MoveBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
-    private Vector2 oldMousePosition;
 
     private void Start()
     {
