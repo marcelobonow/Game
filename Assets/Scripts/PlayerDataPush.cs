@@ -15,11 +15,9 @@ public class PlayerDataPush : MonoBehaviour {
         datamanager = GameObject.Find("Game Manager").GetComponent<DataManager>();
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
         db = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
-        key = datamanager.key;
+        key = datamanager.keysession;
         db = db.Child(key);
 	}
-
-    private DataSnapshot data;
 	
 	void FixedUpdate ()
     {
