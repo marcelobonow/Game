@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class DataManager : MonoBehaviour {
 
     private float lastUpdate;
-    private static Firebase.Database.DatabaseReference db;
+    private static Firebase.Database.DatabaseReference UsersReference;
     private GameObject temp;
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
     public List<string> keys;
@@ -16,48 +16,40 @@ public class DataManager : MonoBehaviour {
 
     void Awake () {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
-        db = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
-        keysession = db.Push().Key;
-        db.GetValueAsync().ContinueWith(task =>
-        {
-            foreach(var data in task.Result.Children)
-            {
-                if (data.Key != keysession)
-                {
-                    GameObject temp = GameObject.Instantiate(playerPrefab); //Instantiate a GameObject
-                    playersDictionary.Add(data.Key, temp);                  //Add on dictionary 
-                    //Set the transform.position of the Game object instantiated to be that of the database
-                    temp.transform.position = new Vector3(float.Parse(data.Child("x").Value.ToString()),
-                                              float.Parse (data.Child("y").Value.ToString()),
-                                              float.Parse (data.Child("z").Value.ToString()));
-                }
-            }
+        UsersReference = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
+        keysession = UsersReference.Push().Key;
+        UsersReference.ChildAdded += UsersReference_ChildAdded;
+        UsersReference.ChildChanged += UsersReference_ChildChanged;
+        UsersReference.ChildRemoved += UsersReference_ChildRemoved;
+    }
 
-        });
+    private void UsersReference_ChildRemoved(object sender, ChildChangedEventArgs e)
+    {
+        Destroy(playersDictionary[e.Snapshot.Key]);
+        playersDictionary.Remove(e.Snapshot.Key);
     }
-	
-	void Update () {
-        if (lastUpdate > 0.1 && playersDictionary.Keys != null) //check if there is other players and some time has passed
+
+    private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
+    {
+        if(e.Snapshot.Key.CompareTo(keysession)!=0)
         {
-            foreach (string playerkey in playersDictionary.Keys)
-            {
-                Firebase.Database.DatabaseReference playerdatabase = FirebaseDatabase. //set a variable to reference the data of player's position
-                                                                   DefaultInstance.RootReference.Database
-                                                                   .GetReference("Users").Child(playerkey);
-                playerdatabase.GetValueAsync().ContinueWith(task =>
-                {
-                    if (task.IsCompleted)
-                    {
-                        var Result = task.Result;
-                        //changes the position of the other player;
-                        playersDictionary[playerkey].transform.position = new Vector3(float.Parse (Result.Child("x").Value.ToString()),
-                                                                          float.Parse(Result.Child("y").Value.ToString()),
-                                                                          float.Parse(Result.Child("z").Value.ToString()));
-                        }
-                    });
-                }
-            }
-        lastUpdate += Time.deltaTime;
+        playersDictionary[e.Snapshot.Key].transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").ToString()),
+                                                               float.Parse(e.Snapshot.Child("y").ToString()),
+                                                               float.Parse(e.Snapshot.Child("z").ToString()));
+        }
     }
+
+    private void UsersReference_ChildAdded(object sender, ChildChangedEventArgs e)
+    {
+        if(e.Snapshot.Key.CompareTo(keysession) != 0)
+        {
+        GameObject temp = GameObject.Instantiate(playerPrefab);
+        playersDictionary.Add(e.Snapshot.Key, temp);
+        temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+                                              float.Parse(e.Snapshot.Child("y").Value.ToString()),
+                                              float.Parse(e.Snapshot.Child("z").Value.ToString()));
+        }
+    }
+
 
 }
