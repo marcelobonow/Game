@@ -8,7 +8,6 @@ public class DataManager : MonoBehaviour {
 
     private static Firebase.Database.DatabaseReference UsersReference;
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
-    public List<string> keys;
     public string keysession;
     public GameObject playerPrefab;
 
@@ -18,6 +17,17 @@ public class DataManager : MonoBehaviour {
         keysession = UsersReference.Push().Key;
         UsersReference.ChildAdded += UsersReference_ChildAdded;
         UsersReference.ChildRemoved += UsersReference_ChildRemoved;
+        UsersReference.ChildChanged += UsersReference_ChildChanged;
+    }
+
+    private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
+    {
+        if (e.Snapshot.Key.CompareTo(keysession)!=0)
+        {
+            playersDictionary[e.Snapshot.Key].transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+                                                  float.Parse(e.Snapshot.Child("y").Value.ToString()),
+                                                  float.Parse(e.Snapshot.Child("z").Value.ToString()));
+        }
     }
 
     private void UsersReference_ChildRemoved(object sender, ChildChangedEventArgs e)
