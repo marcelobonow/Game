@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class DataManager : MonoBehaviour {
 
     private static Firebase.Database.DatabaseReference UsersReference;
+    private Dictionary<string, Vector3> buffer = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
     public string keysession;
     public GameObject playerPrefab;
@@ -20,11 +21,19 @@ public class DataManager : MonoBehaviour {
         UsersReference.ChildChanged += UsersReference_ChildChanged;
     }
 
+    private void FixedUpdate()
+    {
+        foreach (string key in buffer.Keys)
+        {
+            playersDictionary[key].transform.position = buffer[key];
+        }
+    }
+
     private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
     {
         if (e.Snapshot.Key.CompareTo(keysession)!=0)
         {
-            playersDictionary[e.Snapshot.Key].transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+            buffer[e.Snapshot.Key]= new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("y").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("z").Value.ToString()));
         }
@@ -34,6 +43,7 @@ public class DataManager : MonoBehaviour {
     {
         Destroy(playersDictionary[e.Snapshot.Key]);
         playersDictionary.Remove(e.Snapshot.Key);
+        buffer.Remove(e.Snapshot.Key);
     }
 
 
@@ -46,6 +56,7 @@ public class DataManager : MonoBehaviour {
                                                   float.Parse(e.Snapshot.Child("y").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("z").Value.ToString()));
             playersDictionary.Add(e.Snapshot.Key, temp);
+            buffer.Add(e.Snapshot.Key, temp.transform.position);
         }
     }
 
