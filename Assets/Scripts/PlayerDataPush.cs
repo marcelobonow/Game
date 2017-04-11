@@ -1,21 +1,27 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using Firebase;
 using Firebase.Database;
 using Firebase.Unity.Editor;
 
 public class PlayerDataPush : MonoBehaviour {
 
+    public DataManager datamanager;
     private Firebase.Database.DatabaseReference playerDataBase;
     private Vector3 lastTransform;
     private string key;
-    public DataManager datamanager;
+    private Dictionary<string, object> data = new Dictionary<string, object>();
 
     void Start () {
+        data.Add("x", transform.position.x);
+        data.Add("y", transform.position.y);
+        data.Add("z", transform.position.z);
         datamanager = GameObject.Find("Game Manager").GetComponent<DataManager>();
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
         playerDataBase = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
         key = datamanager.keysession;
         playerDataBase = playerDataBase.Child(key); //playerDataBase reference to the player node on database
+        playerDataBase.UpdateChildrenAsync(data);
 	}
 	
 	void FixedUpdate ()
@@ -26,9 +32,10 @@ public class PlayerDataPush : MonoBehaviour {
                                                             //position to the database
         {
             lastTransform = transform.position;
-            playerDataBase.Child("x").SetValueAsync(transform.position.x);
-            playerDataBase.Child("y").SetValueAsync(transform.position.y);
-            playerDataBase.Child("z").SetValueAsync(transform.position.z);
+            data["x"] = transform.position.x;
+            data["y"] = transform.position.y;
+            data["z"] = transform.position.z;
+            playerDataBase.UpdateChildrenAsync(data);
         }
 	}
 

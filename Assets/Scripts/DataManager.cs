@@ -6,9 +6,7 @@ using System.Collections.Generic;
 
 public class DataManager : MonoBehaviour {
 
-    private float lastUpdate;
     private static Firebase.Database.DatabaseReference UsersReference;
-    private GameObject temp;
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
     public List<string> keys;
     public string keysession;
@@ -19,7 +17,6 @@ public class DataManager : MonoBehaviour {
         UsersReference = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
         keysession = UsersReference.Push().Key;
         UsersReference.ChildAdded += UsersReference_ChildAdded;
-        UsersReference.ChildChanged += UsersReference_ChildChanged;
         UsersReference.ChildRemoved += UsersReference_ChildRemoved;
     }
 
@@ -29,25 +26,16 @@ public class DataManager : MonoBehaviour {
         playersDictionary.Remove(e.Snapshot.Key);
     }
 
-    private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
-    {
-        if(e.Snapshot.Key.CompareTo(keysession)!=0)
-        {
-        playersDictionary[e.Snapshot.Key].transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").ToString()),
-                                                               float.Parse(e.Snapshot.Child("y").ToString()),
-                                                               float.Parse(e.Snapshot.Child("z").ToString()));
-        }
-    }
 
     private void UsersReference_ChildAdded(object sender, ChildChangedEventArgs e)
     {
         if(e.Snapshot.Key.CompareTo(keysession) != 0)
         {
-        GameObject temp = GameObject.Instantiate(playerPrefab);
-        playersDictionary.Add(e.Snapshot.Key, temp);
-        temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
-                                              float.Parse(e.Snapshot.Child("y").Value.ToString()),
-                                              float.Parse(e.Snapshot.Child("z").Value.ToString()));
+            GameObject temp = GameObject.Instantiate(playerPrefab);
+            temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+                                                  float.Parse(e.Snapshot.Child("y").Value.ToString()),
+                                                  float.Parse(e.Snapshot.Child("z").Value.ToString()));
+            playersDictionary.Add(e.Snapshot.Key, temp);
         }
     }
 
