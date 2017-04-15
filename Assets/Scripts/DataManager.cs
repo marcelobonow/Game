@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour {
     private Dictionary<string, Vector3> buffer = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
     public static string keysession;
-    public GameObject playerPrefab;
+    public GameObject Soldiergo,Snipergo,Occultistgo;
 
     void Awake () {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
@@ -54,9 +54,21 @@ public class DataManager : MonoBehaviour {
 
     private void UsersReference_ChildAdded(object sender, ChildChangedEventArgs e)
     {
+        GameObject temp = new GameObject();
         if(e.Snapshot.Key.CompareTo(keysession) != 0)
         {
-            GameObject temp = GameObject.Instantiate(playerPrefab);
+            if (e.Snapshot.Child("Nickname").Value.ToString().CompareTo("Soldier") == 0)
+            {
+                temp = GameObject.Instantiate(Soldiergo);
+            }
+            else if(e.Snapshot.Child("Nickname").Value.ToString().CompareTo("Sniper") == 0)
+            {
+                temp = GameObject.Instantiate(Snipergo);
+            }
+            else
+            {
+                temp = GameObject.Instantiate(Occultistgo);
+            }
             temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("y").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("z").Value.ToString()));
