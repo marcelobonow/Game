@@ -6,19 +6,24 @@ using System.Collections.Generic;
 
 public class DataManager : MonoBehaviour {
 
-    private static Firebase.Database.DatabaseReference UsersReference;
+    public enum Classes
+    {
+        Soldier,
+        Sniper,
+        Occulist
+    }
+
     private Dictionary<string, Vector3> buffer = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
-    public string keysession;
+    public static string keysession;
     public GameObject playerPrefab;
 
     void Awake () {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
-        UsersReference = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
-        keysession = UsersReference.Push().Key;
-        UsersReference.ChildAdded += UsersReference_ChildAdded;
-        UsersReference.ChildRemoved += UsersReference_ChildRemoved;
-        UsersReference.ChildChanged += UsersReference_ChildChanged;
+        keysession = UIManager.keySession;
+        UIManager.database.ChildAdded += UsersReference_ChildAdded;
+        UIManager.database.ChildRemoved += UsersReference_ChildRemoved;
+        UIManager.database.ChildChanged += UsersReference_ChildChanged;
     }
 
     private void FixedUpdate()
@@ -60,5 +65,10 @@ public class DataManager : MonoBehaviour {
         }
     }
 
+    private void OnApplicationQuit()
+    {
+        UIManager.database.Child(keysession).RemoveValueAsync();                  //removes the node in the database
+        Application.Quit();
+    }
 
 }

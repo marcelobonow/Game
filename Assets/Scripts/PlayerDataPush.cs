@@ -6,22 +6,19 @@ using Firebase.Unity.Editor;
 
 public class PlayerDataPush : MonoBehaviour {
 
-    public DataManager datamanager;
-    private Firebase.Database.DatabaseReference playerDataBase;
+    public static string Nickname;
     private Vector3 lastTransform;
-    private string key;
+    private string keySession;
     private Dictionary<string, object> data = new Dictionary<string, object>();
 
     void Start () {
         data.Add("x", transform.position.x);
         data.Add("y", transform.position.y);
         data.Add("z", transform.position.z);
-        datamanager = GameObject.Find("Game Manager").GetComponent<DataManager>();
+        data.Add("Nickname", Nickname);
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
-        playerDataBase = FirebaseDatabase.DefaultInstance.RootReference.Database.GetReference("Users");
-        key = datamanager.keysession;
-        playerDataBase = playerDataBase.Child(key); //playerDataBase reference to the player node on database
-        playerDataBase.UpdateChildrenAsync(data);
+        keySession = UIManager.keySession;
+        UIManager.database.Child(keySession).UpdateChildrenAsync(data);
 	}
 	
 	void FixedUpdate ()
@@ -35,14 +32,8 @@ public class PlayerDataPush : MonoBehaviour {
             data["x"] = transform.position.x;
             data["y"] = transform.position.y;
             data["z"] = transform.position.z;
-            playerDataBase.UpdateChildrenAsync(data);
+            UIManager.database.Child(keySession).UpdateChildrenAsync(data);
         }
 	}
-
-    private void OnApplicationQuit()
-    {
-        playerDataBase.RemoveValueAsync();                  //removes the node in the database
-        Application.Quit();
-    }
 
 }
