@@ -57,15 +57,15 @@ public class DataManager : MonoBehaviour {
         GameObject temp = new GameObject();
         if(e.Snapshot.Key.CompareTo(keysession) != 0)
         {
-            if (e.Snapshot.Child("Nickname").Value.ToString().CompareTo("Soldier") == 0)
+            if (e.Snapshot.Child("Class").Value.ToString().CompareTo("Soldier") == 0)
             {
                 temp = GameObject.Instantiate(Soldiergo);
             }
-            else if(e.Snapshot.Child("Nickname").Value.ToString().CompareTo("Sniper") == 0)
+            else if(e.Snapshot.Child("Class").Value.ToString().CompareTo("Sniper") == 0)
             {
                 temp = GameObject.Instantiate(Snipergo);
             }
-            else
+            else if(e.Snapshot.Child("Class").Value.ToString().CompareTo("Occultist") == 0)
             {
                 temp = GameObject.Instantiate(Occultistgo);
             }

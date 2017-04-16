@@ -6,4 +6,9 @@ public class PlayerClass : MonoBehaviour {
 
     protected string keySession = UIManager.keySession;
 
+    private void Start()
+    {
+
+    }
+
 }
