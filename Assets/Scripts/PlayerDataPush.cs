@@ -10,8 +10,10 @@ public class PlayerDataPush : MonoBehaviour {
     private Vector3 lastTransform;
     private string keySession;
     private Dictionary<string, object> data = new Dictionary<string, object>();
+    private int counter;
 
     void Start () {
+        counter = 0;
         data.Add("x", transform.position.x);
         data.Add("y", transform.position.y);
         data.Add("z", transform.position.z);
@@ -23,17 +25,24 @@ public class PlayerDataPush : MonoBehaviour {
 	
 	void FixedUpdate ()
     {
-        if (lastTransform.x != transform.position.x ||
-            lastTransform.y != transform.position.y || 
-            lastTransform.z != transform.position.z)        //if the position of the player changes, it sends the new
-                                                            //position to the database
+        if (counter > 2)
         {
-            lastTransform = transform.position;
-            data["x"] = transform.position.x;
-            data["y"] = transform.position.y;
-            data["z"] = transform.position.z;
-            UIManager.database.Child(keySession).UpdateChildrenAsync(data);
+            counter = 0;
+            if (lastTransform.x != transform.position.x ||
+                lastTransform.y != transform.position.y ||
+                lastTransform.z != transform.position.z)        //if the position of the player changes, it sends the new
+                                                                //position to the database
+            {
+                lastTransform = transform.position;
+                data["x"] = transform.position.x;
+                data["y"] = transform.position.y;
+                data["z"] = transform.position.z;
+                Debug.Log("escrevendo: " + transform.position.x);
+                UIManager.database.Child(keySession).UpdateChildrenAsync(data);
+
+            }
         }
+        counter++;
 	}
 
 }

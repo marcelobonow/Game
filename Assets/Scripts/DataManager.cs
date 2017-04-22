@@ -36,12 +36,13 @@ public class DataManager : MonoBehaviour {
 
     private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
     {
-        if (e.Snapshot.Key.CompareTo(keysession)!=0)
-        {
-            buffer[e.Snapshot.Key]= new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
-                                                  float.Parse(e.Snapshot.Child("y").Value.ToString()),
-                                                  float.Parse(e.Snapshot.Child("z").Value.ToString()));
-        }
+        Debug.Log("Lendo: " + e.Snapshot.Child("x").Value);
+        //if (e.Snapshot.Key.CompareTo(keysession)!=0)
+        //{
+        //    buffer[e.Snapshot.Key]= new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+        //                                          float.Parse(e.Snapshot.Child("y").Value.ToString()),
+        //                                          float.Parse(e.Snapshot.Child("z").Value.ToString()));
+        //}
     }
 
     private void UsersReference_ChildRemoved(object sender, ChildChangedEventArgs e)
