@@ -15,19 +15,27 @@ public class DataManager : MonoBehaviour {
 
     private Dictionary<string, Vector3> buffer = new Dictionary<string, Vector3>();
     public Dictionary<string, GameObject> playersDictionary = new Dictionary<string, GameObject>();
-    public static string keysession;
+    public static string keySession;
     public GameObject Soldiergo,Snipergo,Occultistgo;
+    public static DatabaseReference database;
+    private float timer, temptimer;
 
     void Awake () {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
-        keysession = UIManager.keySession;
-        UIManager.database.ChildAdded += UsersReference_ChildAdded;
-        UIManager.database.ChildRemoved += UsersReference_ChildRemoved;
-        UIManager.database.ChildChanged += UsersReference_ChildChanged;
+        database = FirebaseDatabase.DefaultInstance.RootReference.Child("Users");
+        keySession = UIManager.keySession;
+        if (keySession == null)
+        {
+            keySession = database.Push().Key;
+        }
+        database.ChildAdded += UsersReference_ChildAdded;
+        database.ChildRemoved += UsersReference_ChildRemoved;
+        database.ChildChanged += UsersReference_ChildChanged;
     }
 
     private void FixedUpdate()
     {
+        timer += Time.deltaTime;
         foreach (string key in buffer.Keys)
         {
             playersDictionary[key].transform.position = buffer[key];
@@ -36,13 +44,18 @@ public class DataManager : MonoBehaviour {
 
     private void UsersReference_ChildChanged(object sender, ChildChangedEventArgs e)
     {
-        Debug.Log("Lendo: " + e.Snapshot.Child("x").Value);
-        //if (e.Snapshot.Key.CompareTo(keysession)!=0)
-        //{
-        //    buffer[e.Snapshot.Key]= new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
-        //                                          float.Parse(e.Snapshot.Child("y").Value.ToString()),
-        //                                          float.Parse(e.Snapshot.Child("z").Value.ToString()));
-        //}
+        
+        if(timer > 0.2f)
+        {
+            if (e.Snapshot.Key.CompareTo(keySession) != 0)
+            {
+                buffer[e.Snapshot.Key] = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+                                                      float.Parse(e.Snapshot.Child("y").Value.ToString()),
+                                                      float.Parse(e.Snapshot.Child("z").Value.ToString()));
+            }
+            timer = 0;
+        }
+        timer += Time.deltaTime;
     }
 
     private void UsersReference_ChildRemoved(object sender, ChildChangedEventArgs e)
@@ -55,9 +68,9 @@ public class DataManager : MonoBehaviour {
 
     private void UsersReference_ChildAdded(object sender, ChildChangedEventArgs e)
     {
-        GameObject temp = new GameObject();
-        if(e.Snapshot.Key.CompareTo(keysession) != 0)
+        if(e.Snapshot.Key.CompareTo(keySession) != 0)
         {
+            GameObject temp = new GameObject();
             if (e.Snapshot.Child("Class").Value.ToString().CompareTo("Soldier") == 0)
             {
                 temp = GameObject.Instantiate(Soldiergo);
@@ -66,7 +79,7 @@ public class DataManager : MonoBehaviour {
             {
                 temp = GameObject.Instantiate(Snipergo);
             }
-            else if(e.Snapshot.Child("Class").Value.ToString().CompareTo("Occultist") == 0)
+            else
             {
                 temp = GameObject.Instantiate(Occultistgo);
             }
@@ -78,9 +91,10 @@ public class DataManager : MonoBehaviour {
         }
     }
 
+
     private void OnApplicationQuit()
     {
-        UIManager.database.Child(keysession).RemoveValueAsync();                  //removes the node in the database
+        database.Child(keySession).RemoveValueAsync();                  //removes the node in the database
         Application.Quit();
     }
 

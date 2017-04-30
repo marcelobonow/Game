@@ -9,20 +9,27 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        if (playerclass == null)
+        {
+            playerclass = "Soldier";
+        }
+        GameObject temp = new GameObject();
         if (playerclass.CompareTo("ToggleSoldier") == 0)
         {
-            UIManager.database.Child(UIManager.keySession).Child("Class").SetValueAsync("Soldier");
-            Instantiate(Soldiergo).AddComponent<MoveBehaviour>();
+            PlayerDataPush.playerclass = "Soldier";
+            temp = Instantiate(Soldiergo);
         }
         else if (playerclass.CompareTo("ToggleSniper") == 0)
         {
-            UIManager.database.Child(UIManager.keySession).Child("Class").SetValueAsync("Sniper");
-            Instantiate(Snipergo).AddComponent<MoveBehaviour>();
+            PlayerDataPush.playerclass = "Sniper";
+            temp = Instantiate(Snipergo);
         }
         else
         {
-            UIManager.database.Child(UIManager.keySession).Child("Class").SetValueAsync("Occultist");
-            Instantiate(Occultistgo).AddComponent<MoveBehaviour>();
+            PlayerDataPush.playerclass = "Occultist";
+            temp = Instantiate(Occultistgo);
         }
+        temp.AddComponent<MoveBehaviour>();
+        temp.AddComponent<PlayerDataPush>();
     }
 }

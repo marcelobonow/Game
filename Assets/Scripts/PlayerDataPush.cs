@@ -7,10 +7,13 @@ using Firebase.Unity.Editor;
 public class PlayerDataPush : MonoBehaviour {
 
     public static string Nickname;
+    public static string playerclass;
+
     private Vector3 lastTransform;
     private string keySession;
     private Dictionary<string, object> data = new Dictionary<string, object>();
     private int counter;
+    public int limit = 2;
 
     void Start () {
         counter = 0;
@@ -18,14 +21,16 @@ public class PlayerDataPush : MonoBehaviour {
         data.Add("y", transform.position.y);
         data.Add("z", transform.position.z);
         data.Add("Nickname", Nickname);
+        data.Add("Class", playerclass);
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
-        keySession = UIManager.keySession;
-        UIManager.database.Child(keySession).UpdateChildrenAsync(data);
+        keySession = DataManager.keySession;
+
+        DataManager.database.Child(keySession).UpdateChildrenAsync(data);
 	}
 	
-	void FixedUpdate ()
+	void Update()
     {
-        if (counter > 2)
+        if (counter > limit)
         {
             counter = 0;
             if (lastTransform.x != transform.position.x ||
@@ -37,8 +42,7 @@ public class PlayerDataPush : MonoBehaviour {
                 data["x"] = transform.position.x;
                 data["y"] = transform.position.y;
                 data["z"] = transform.position.z;
-                Debug.Log("escrevendo: " + transform.position.x);
-                UIManager.database.Child(keySession).UpdateChildrenAsync(data);
+                DataManager.database.Child(keySession).UpdateChildrenAsync(data);
 
             }
         }

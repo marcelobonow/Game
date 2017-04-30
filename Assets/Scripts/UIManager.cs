@@ -24,14 +24,13 @@ public class UIManager : MonoBehaviour {
     {
 
         GameManager.playerclass = ClassSelectGroup.ActiveToggles().FirstOrDefault().name;
-        database.Child(keySession).Child("Nickname").SetValueAsync(nickNameInput.text);
         PlayerDataPush.Nickname = nickNameInput.text;
         SceneManager.LoadScene(1);        
     }
 
     private void OnApplicationQuit()
     {
-        UIManager.database.Child(keySession).RemoveValueAsync();                  //removes the node in the database
+        database.Child(keySession).RemoveValueAsync();                  //removes the node in the database
         Application.Quit();
     }
 }
