@@ -68,26 +68,26 @@ public class DataManager : MonoBehaviour {
 
     private void UsersReference_ChildAdded(object sender, ChildChangedEventArgs e)
     {
+        GameObject Temp;
         if(e.Snapshot.Key.CompareTo(keySession) != 0)
         {
-            GameObject temp = new GameObject();
             if (e.Snapshot.Child("Class").Value.ToString().CompareTo("Soldier") == 0)
             {
-                temp = GameObject.Instantiate(Soldiergo);
+                Temp = GameObject.Instantiate(Soldiergo);
             }
             else if(e.Snapshot.Child("Class").Value.ToString().CompareTo("Sniper") == 0)
             {
-                temp = GameObject.Instantiate(Snipergo);
+                Temp = GameObject.Instantiate(Snipergo);
             }
             else
             {
-                temp = GameObject.Instantiate(Occultistgo);
+                Temp = GameObject.Instantiate(Occultistgo);
             }
-            temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
+                Temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("y").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("z").Value.ToString()));
-            playersDictionary.Add(e.Snapshot.Key, temp);
-            buffer.Add(e.Snapshot.Key, temp.transform.position);
+            playersDictionary.Add(e.Snapshot.Key, Temp);
+            buffer.Add(e.Snapshot.Key, Temp.transform.position);
         }
     }
 

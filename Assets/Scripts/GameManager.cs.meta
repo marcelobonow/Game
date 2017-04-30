@@ -1,10 +1,15 @@
 fileFormatVersion: 2
 guid: d5433cc39b7ebdc4e8b6c27348c01c94
-timeCreated: 1492206176
+timeCreated: 1493581728
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Soldiergo: {fileID: 1092742777812376, guid: b77d4de1b67ca6042a243d88ae077b93,
+      type: 2}
+  - Snipergo: {fileID: 1749306918931960, guid: e6271e1d48f9d7746a6e4e772f4b1496, type: 2}
+  - Occultistgo: {fileID: 1404984568227016, guid: 5278fdfefba84da46a275200d33901d8,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

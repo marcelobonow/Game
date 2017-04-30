@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
         {
             playerclass = "Soldier";
         }
-        GameObject temp = new GameObject();
+        GameObject temp;
         if (playerclass.CompareTo("ToggleSoldier") == 0)
         {
             PlayerDataPush.playerclass = "Soldier";
