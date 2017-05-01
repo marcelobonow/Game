@@ -31,5 +31,6 @@ public class GameManager : MonoBehaviour {
         }
         temp.AddComponent<MoveBehaviour>();
         temp.AddComponent<PlayerDataPush>();
+        temp.name = "Player";
     }
 }

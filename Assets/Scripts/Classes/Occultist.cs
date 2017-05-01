@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Occultist : MonoBehaviour {
+public class Occultist : PlayerClass {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	public Occultist()
+    {
+        speed = 10f;
+        range = 20f;
+    }
 }

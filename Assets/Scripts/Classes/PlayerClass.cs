@@ -3,12 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerClass : MonoBehaviour {
-
-    protected string keySession = UIManager.keySession;
-
-    private void Start()
-    {
-
-    }
+    public float speed {get;set;}
+    public float range;
+    public string nickname;
+    protected string keySession = DataManager.keySession;
 
 }

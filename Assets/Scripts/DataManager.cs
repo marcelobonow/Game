@@ -86,6 +86,7 @@ public class DataManager : MonoBehaviour {
                 Temp.transform.position = new Vector3(float.Parse(e.Snapshot.Child("x").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("y").Value.ToString()),
                                                   float.Parse(e.Snapshot.Child("z").Value.ToString()));
+            Temp.name = e.Snapshot.Child("Nickname").Value.ToString();
             playersDictionary.Add(e.Snapshot.Key, Temp);
             buffer.Add(e.Snapshot.Key, Temp.transform.position);
         }
