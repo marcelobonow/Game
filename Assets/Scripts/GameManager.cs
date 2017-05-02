@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     {
         if (playerclass == null)
         {
-            playerclass = "Soldier";
+            playerclass = "Occultist";
         }
         GameObject temp;
         if (playerclass.CompareTo("ToggleSoldier") == 0)
@@ -29,8 +29,7 @@ public class GameManager : MonoBehaviour {
             PlayerDataPush.playerclass = "Occultist";
             temp = Instantiate(Occultistgo);
         }
-        temp.AddComponent<MoveBehaviour>();
-        temp.AddComponent<PlayerDataPush>();
+        
         temp.name = "Player";
     }
 }

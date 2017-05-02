@@ -7,5 +7,6 @@ public class Soldier : PlayerClass {
     public Soldier()
     {
         speed = 15f;
+        range = 8f;
     }
 }

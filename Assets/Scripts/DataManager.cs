@@ -18,7 +18,7 @@ public class DataManager : MonoBehaviour {
     public static string keySession;
     public GameObject Soldiergo,Snipergo,Occultistgo;
     public static DatabaseReference database;
-    private float timer, temptimer;
+    private float timer;
 
     void Awake () {
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
