@@ -46,6 +46,7 @@ public class MoveBehaviour : MonoBehaviour {
                     {
                         Ray normalizedRay = new Ray(gameObject.transform.position, new Vector3(hit.point.x, 0.5f, hit.point.z));
                         Vector3 maxDistance = normalizedRay.GetPoint(gameObject.GetComponent<PlayerClass>().range);
+                        maxDistance.y = 0.5f;
                         GameObject myLine = new GameObject();
                         myLine.transform.position = gameObject.transform.position;
                         myLine.AddComponent<LineRenderer>();
