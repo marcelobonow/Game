@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
@@ -9,11 +7,12 @@ public class GameManager : MonoBehaviour {
 
     private void Start()
     {
+        GameObject temp;
+
         if (playerclass == null)
         {
             playerclass = "Occultist";
         }
-        GameObject temp;
         if (playerclass.CompareTo("ToggleSoldier") == 0)
         {
             PlayerDataPush.playerclass = "Soldier";
@@ -29,7 +28,8 @@ public class GameManager : MonoBehaviour {
             PlayerDataPush.playerclass = "Occultist";
             temp = Instantiate(Occultistgo);
         }
-        
+        temp.GetComponent<MoveBehaviour>().enabled = true;
         temp.name = "Player";
+        
     }
 }

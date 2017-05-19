@@ -1,32 +1,41 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using UnityEngine.Networking;
 
 [RequireComponent(typeof(Rigidbody))]
 
-public class MoveBehaviour : MonoBehaviour {
+public class MoveBehaviour : NetworkBehaviour {
     Camera maincamera;
-    public RectTransform ui;
     public Material mymaterial;
+    [SerializeField]
     private Rigidbody rb;
     private int snapfingerid;
     private float timer;
+#if UNITY_ANDROID
+    public RectTransform ui;
+#endif
+
 
     private void Start()
     {
+#if UNITY_ANDROID
+        ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
+#endif
+        rb = gameObject.GetComponent<Rigidbody>();
         timer = 0;
         snapfingerid = -1;
-        ui = GameObject.Find("MobileJoystick").GetComponent<RectTransform>();
         maincamera = Camera.main;
-        rb = gameObject.GetComponent<Rigidbody>();
         maincamera.transform.SetParent(gameObject.transform);
     }
 
-    void FixedUpdate() {
+    void FixedUpdate()
+    {
         rb.position = new Vector3(rb.position.x +
                     (CrossPlatformInputManager.GetAxis("Horizontal") * gameObject.GetComponent<PlayerClass>().speed * Time.deltaTime),
                     0.5f,
                     rb.position.z + (CrossPlatformInputManager.GetAxis("Depth") * gameObject.GetComponent<PlayerClass>().speed * Time.deltaTime));
         rb.velocity = Vector3.zero;
+#if UNITY_ANDROID
         if (Input.touchCount > 0)
         {
             foreach (Touch touch in Input.touches)
@@ -72,5 +81,7 @@ public class MoveBehaviour : MonoBehaviour {
             snapfingerid = -1;
         }
         timer += Time.deltaTime;
+    }
+#endif
     }
 }
