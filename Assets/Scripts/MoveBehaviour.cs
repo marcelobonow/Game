@@ -18,14 +18,18 @@ public class MoveBehaviour : NetworkBehaviour {
 
     private void Start()
     {
-#if UNITY_ANDROID
+        if(!isLocalPlayer)
+        {
+            this.enabled = false;
+        }
+        #if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif
         rb = gameObject.GetComponent<Rigidbody>();
         timer = 0;
         snapfingerid = -1;
-        maincamera = Camera.main;
-        maincamera.transform.SetParent(gameObject.transform);
+        //maincamera = Camera.main;
+        //maincamera.transform.SetParent(gameObject.transform);
     }
 
     void FixedUpdate()

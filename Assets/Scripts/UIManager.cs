@@ -22,9 +22,9 @@ public class UIManager : MonoBehaviour {
 
     public void SendData()
     {
-        GameManager.playerclass = ClassSelectGroup.ActiveToggles().FirstOrDefault().name;
-        PlayerDataPush.Nickname = nickNameInput.text;
-        SceneManager.LoadScene(1);        
+        //GameManager.playerclass = ClassSelectGroup.ActiveToggles().FirstOrDefault().name;
+        //PlayerDataPush.Nickname = nickNameInput.text;
+        //SceneManager.LoadScene(1);        
     }
 
     private void OnApplicationQuit()
