@@ -67,9 +67,8 @@ public class JoinGame : MonoBehaviour {
     }
     public void JoinRoom(MatchInfoSnapshot _match)
     {
+        Status.text = "Joining...";
         networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
         ClearRoomList();
-        Status.text = "Joining...";
-        networkManager.ServerChangeScene("Main");
     }
 }
