@@ -48,6 +48,14 @@ public class MoveBehaviour : NetworkBehaviour {
 
     private void Start()
     {
+        if (spawnPoints == null)
+        {
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("Spawn Point");
+            foreach (GameObject _startPosition in temp)
+            {
+                spawnPoints.Add(_startPosition.transform);
+            }
+        }
 #if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif

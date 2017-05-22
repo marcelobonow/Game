@@ -37,14 +37,14 @@ Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\M
 Loading C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Compat.dll into Unity Child Domain
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Tasks.dll (this message is harmless)
 Loading C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Tasks.dll into Unity Child Domain
-- Completed reload, in  0.098 seconds
+- Completed reload, in  0.087 seconds
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\System.dll (this message is harmless)
 desktop: 2560x1080 60Hz; virtual: 3840x1415 at -1280,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.302011 ms
+UnloadTime: 1.465083 ms
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
@@ -93,16 +93,16 @@ MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchR
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Setting up 4 worker threads for Enlighten.
-  Thread -> id: b714 -> priority: 1 
-  Thread -> id: b738 -> priority: 1 
-  Thread -> id: 8ac8 -> priority: 1 
-  Thread -> id: b84c -> priority: 1 
+  Thread -> id: 9e6c -> priority: 1 
+  Thread -> id: 9f5c -> priority: 1 
+  Thread -> id: 7e60 -> priority: 1 
+  Thread -> id: a22c -> priority: 1 
 MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
  
 (Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 5.522413 ms
+UnloadTime: 4.386801 ms
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
 Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
@@ -124,24 +124,7 @@ Rethrow as TypeInitializationException: An exception was thrown by the type init
 
 
 Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 393.
-Total: 0.892925 ms (FindLiveObjects: 0.071423 ms CreateObjectMapping: 0.072447 ms MarkObjects: 0.710909 ms  DeleteObjects: 0.036607 ms)
-
-Log: connection {1} has been disconnected by timeout; address {::ffff:52.71.166.171:9999}
-Attempt to send to not connected connection {1}
- 
-(Filename:  Line: 362)
-
-Failed to send internal buffer channel:1 bytesToSend:93
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Send Error: WrongConnection channel:1 bytesToSend:93
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-ServerDisconnected due to error: Timeout
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+Total: 0.429566 ms (FindLiveObjects: 0.037375 ms CreateObjectMapping: 0.024831 ms MarkObjects: 0.324862 ms  DeleteObjects: 0.041471 ms)
 
 NullReferenceException: Object reference not set to an instance of an object
   at DataManager.OnApplicationQuit () [0x00000] in <filename unknown>:0 
