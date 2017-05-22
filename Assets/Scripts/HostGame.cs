@@ -5,7 +5,7 @@ public class HostGame : MonoBehaviour {
 
     private uint roomSize = 4;
     private string roomName;
-    private NetworkManager networkManager;
+    public static NetworkManager networkManager;
 
     void Start () {
         networkManager = NetworkManager.singleton;
@@ -24,7 +24,6 @@ public class HostGame : MonoBehaviour {
     {
         if (roomName != "" && roomName != null)
         {
-            Debug.Log("Creating Room: " + roomName);
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
         }
         else

@@ -1,16 +1,46 @@
 ﻿using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
+using System.Collections.Generic;
 
 [RequireComponent(typeof(Rigidbody))]
 
 public class MoveBehaviour : NetworkBehaviour {
+
+    public struct _Transform
+    {
+        public Transform transform;
+    }
+
     Camera maincamera;
+    public List<Transform> spawnPoints;
+    [SyncVar][SerializeField]
+    private int nextSpawnPoint;
     public Material mymaterial;
     [SerializeField]
     private Rigidbody rb;
     private int snapfingerid;
     private float timer;
+
+    public int NextSpawnPoint
+    {
+        get
+        {
+            return nextSpawnPoint;
+        }
+
+        set
+        {
+            if(value > 3 || value < 0)
+            {
+                nextSpawnPoint = 0;
+            }
+            else
+            {
+            nextSpawnPoint = value;
+            }
+        }
+    }
 #if UNITY_ANDROID
     public RectTransform ui;
 #endif
@@ -18,27 +48,29 @@ public class MoveBehaviour : NetworkBehaviour {
 
     private void Start()
     {
-        if(!isLocalPlayer)
-        {
-            this.enabled = false;
-        }
-        #if UNITY_ANDROID
+#if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif
         rb = gameObject.GetComponent<Rigidbody>();
         timer = 0;
         snapfingerid = -1;
+
         //maincamera = Camera.main;
         //maincamera.transform.SetParent(gameObject.transform);
+    }
+    public override void OnStartClient()
+    {
+        rb.transform.position = spawnPoints[NextSpawnPoint].transform.position;
+        rb.transform.rotation = spawnPoints[NextSpawnPoint].transform.rotation;
+        NextSpawnPoint++;
     }
 
     void FixedUpdate()
     {
-        rb.position = new Vector3(rb.position.x +
-                    (CrossPlatformInputManager.GetAxis("Horizontal") * gameObject.GetComponent<PlayerClass>().speed * Time.deltaTime),
-                    0.5f,
-                    rb.position.z + (CrossPlatformInputManager.GetAxis("Depth") * gameObject.GetComponent<PlayerClass>().speed * Time.deltaTime));
-        rb.velocity = Vector3.zero;
+        gameObject.GetComponent<Rigidbody>().velocity = (new Vector3(
+            CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,
+            0f,
+            CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed));
 #if UNITY_ANDROID
         if (Input.touchCount > 0)
         {
