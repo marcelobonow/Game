@@ -20,7 +20,6 @@ public class PlayerClass : NetworkBehaviour {
         if (isLocalPlayer)
         {
             GetComponent<MoveBehaviour>().enabled = true;
-            GetComponent<PlayerManager>().enabled = true;
             playerclass = GameManager.playerclass;
             gameObject.name = "Player";
             hostGame = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<HostGame>();

@@ -37,9 +37,118 @@ Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\M
 Loading C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Compat.dll into Unity Child Domain
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Tasks.dll (this message is harmless)
 Loading C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\Unity.Tasks.dll into Unity Child Domain
-- Completed reload, in  0.086 seconds
+- Completed reload, in  0.132 seconds
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Marcelo\Documents\Unity\FireBase\Binary\Build_Data\Managed\System.dll (this message is harmless)
 desktop: 2560x1080 60Hz; virtual: 3840x1415 at -1280,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 1.752826 ms
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+DllNotFoundException: App
+  at (wrapper managed-to-native) Firebase.AppUtilPINVOKE/SWIGExceptionHelper:SWIGRegisterExceptionCallbacks_AppUtil (Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate)
+  at Firebase.AppUtilPINVOKE+SWIGExceptionHelper..cctor () [0x00000] in <filename unknown>:0 
+Rethrow as TypeInitializationException: An exception was thrown by the type initializer for SWIGExceptionHelper
+  at Firebase.AppUtilPINVOKE..cctor () [0x00000] in <filename unknown>:0 
+Rethrow as TypeInitializationException: An exception was thrown by the type initializer for Firebase.AppUtilPINVOKE
+  at Firebase.AppUtil.SetEnabledAllAppCallbacks (Boolean arg0) [0x00000] in <filename unknown>:0 
+  at Firebase.FirebaseApp+FirebaseHandler.Create () [0x00000] in <filename unknown>:0 
+  at Firebase.FirebaseApp.get_DefaultInstance () [0x00000] in <filename unknown>:0 
+  at UIManager.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 10aa4 -> priority: 1 
+  Thread -> id: f94c -> priority: 1 
+  Thread -> id: a08c -> priority: 1 
+  Thread -> id: fa64 -> priority: 1 
+MatchMakingClient Create :https://mm.unet.unity3d.com/json/reply/CreateMatchRequest
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 5.060591 ms
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/App
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/.\libApp
+Fallback handler could not load library C:/Users/Marcelo/Documents/Unity/FireBase/Binary/Build_Data/Mono/libApp
+DllNotFoundException: App
+  at (wrapper managed-to-native) Firebase.AppUtilPINVOKE/SWIGExceptionHelper:SWIGRegisterExceptionCallbacks_AppUtil (Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate,Firebase.AppUtilPINVOKE/SWIGExceptionHelper/ExceptionDelegate)
+  at Firebase.AppUtilPINVOKE+SWIGExceptionHelper..cctor () [0x00000] in <filename unknown>:0 
+Rethrow as TypeInitializationException: An exception was thrown by the type initializer for SWIGExceptionHelper
+  at Firebase.AppUtilPINVOKE..cctor () [0x00000] in <filename unknown>:0 
+Rethrow as TypeInitializationException: An exception was thrown by the type initializer for Firebase.AppUtilPINVOKE
+  at Firebase.AppUtil.SetEnabledAllAppCallbacks (Boolean arg0) [0x00000] in <filename unknown>:0 
+  at Firebase.FirebaseApp+FirebaseHandler.Create () [0x00000] in <filename unknown>:0 
+  at Firebase.FirebaseApp.get_DefaultInstance () [0x00000] in <filename unknown>:0 
+  at UIManager.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+
+Unloading 24 unused Assets to reduce memory usage. Loaded Objects now: 417.
+Total: 0.427774 ms (FindLiveObjects: 0.031999 ms CreateObjectMapping: 0.017919 ms MarkObjects: 0.339454 ms  DeleteObjects: 0.037119 ms)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+0
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Log: connection {1} has been disconnected by timeout; address {::ffff:52.71.166.171:9999}
+NullReferenceException: Object reference not set to an instance of an object
+  at DataManager.OnApplicationQuit () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
