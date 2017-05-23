@@ -1,11 +1,14 @@
 ﻿using UnityEngine.Networking;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class HostGame : MonoBehaviour {
+public class HostGame : NetworkBehaviour {
 
     private uint roomSize = 4;
     private string roomName;
     public static NetworkManager networkManager;
+    [SyncVar]
+    public string playerName;
 
     void Start () {
         networkManager = NetworkManager.singleton;
@@ -19,10 +22,14 @@ public class HostGame : MonoBehaviour {
     {
         roomName = _RoomName;
     }
+    public void SetPlayerName(string _name)
+    {
+        playerName = _name;
+    }
 
     public void CreateRoom()
     {
-        if (roomName != "" && roomName != null)
+        if (roomName != "" && roomName != null && playerName!= "" && playerName!= null)
         {
             networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
         }

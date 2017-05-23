@@ -14,7 +14,6 @@ public class PlayerDataPush : MonoBehaviour {
     void Start () { 
         FirebaseApp.DefaultInstance.SetEditorDatabaseUrl("https://unity-project-34538.firebaseio.com/");
         keySession = DataManager.keySession;
-        gameObject.GetComponent<PlayerClass>().nickname = Nickname;
         DataManager.database.Child(keySession).Child("Class").SetValueAsync(playerclass);
         DataManager.database.Child(keySession).Child("Nickname").SetValueAsync(Nickname);
 	}

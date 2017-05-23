@@ -2,7 +2,7 @@
 using UnityStandardAssets.CrossPlatformInput;
 using UnityEngine.Networking;
 using System.Collections.Generic;
-
+using UnityEngine.UI;
 [RequireComponent(typeof(Rigidbody))]
 
 public class MoveBehaviour : NetworkBehaviour {
@@ -17,6 +17,7 @@ public class MoveBehaviour : NetworkBehaviour {
     [SyncVar][SerializeField]
     private int nextSpawnPoint;
     public Material mymaterial;
+    public Text nickName;
     [SerializeField]
     private Rigidbody rb;
     private int snapfingerid;
@@ -65,12 +66,6 @@ public class MoveBehaviour : NetworkBehaviour {
 
         //maincamera = Camera.main;
         //maincamera.transform.SetParent(gameObject.transform);
-    }
-    public override void OnStartClient()
-    {
-        rb.transform.position = spawnPoints[NextSpawnPoint].transform.position;
-        rb.transform.rotation = spawnPoints[NextSpawnPoint].transform.rotation;
-        NextSpawnPoint++;
     }
 
     void FixedUpdate()
@@ -127,5 +122,21 @@ public class MoveBehaviour : NetworkBehaviour {
         timer += Time.deltaTime;
     }
 #endif
+    }
+    public override void OnStartClient()
+    {
+        rb.transform.position = spawnPoints[NextSpawnPoint].transform.position;
+        rb.transform.rotation = spawnPoints[NextSpawnPoint].transform.rotation;
+        NextSpawnPoint++;
+        nickName.text = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<HostGame>().playerName;
+        if (nickName == null)
+        {
+            Debug.Log("Sorry, an Error occrred");
+        }
+        else
+        {
+            PlayerClass.nickname = nickName.text;
+            PlayerClass.nickname = "a";
+        }
     }
 }

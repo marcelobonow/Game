@@ -7,7 +7,7 @@ public class PlayerClass : MonoBehaviour {
     public float speed = 10f;
     public float range = 6f;
     public float firerate = 10f;
-    public string nickname;
+    public static string nickname;
     protected string keySession = DataManager.keySession;
     public static string playerclass;
 
