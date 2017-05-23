@@ -1,27 +1,41 @@
 ﻿using UnityEngine.Networking;
-using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 
-public class PlayerClass : MonoBehaviour {
+public class PlayerClass : NetworkBehaviour {
 
     public float speed = 10f;
     public float range = 6f;
     public float firerate = 10f;
-    public static string nickname;
-    protected string keySession = DataManager.keySession;
+    [SyncVar]
+    public string _nickName;
+    public Text nick;
     public static string playerclass;
+    public HostGame hostGame;
+    public int counter;
+    public int teste;
 
-    public NetworkManager networkManager;
-
-    private void Start()
+    public void Start()
     {
-        networkManager = NetworkManager.singleton;
-        if (networkManager.matchMaker == null)
+        if (isLocalPlayer)
         {
-            networkManager.StartMatchMaker();
+            GetComponent<MoveBehaviour>().enabled = true;
+            GetComponent<PlayerManager>().enabled = true;
+            playerclass = GameManager.playerclass;
+            gameObject.name = "Player";
+            hostGame = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<HostGame>();
+            CmdChangeNickName(hostGame.playerName);
+            nick.text = _nickName;
         }
-        playerclass = GameManager.playerclass;
-        name = "Player";
-        GetComponent<MoveBehaviour>().enabled = true;
+    }
+    private void FixedUpdate()
+    {
+        nick.text = _nickName;
+        
+    }
+    [Command]
+    void CmdChangeNickName(string _value)
+    {
+        _nickName = _value;
     }
 }

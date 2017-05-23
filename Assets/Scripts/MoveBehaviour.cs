@@ -13,35 +13,11 @@ public class MoveBehaviour : NetworkBehaviour {
     }
 
     Camera maincamera;
-    public List<Transform> spawnPoints;
-    [SyncVar][SerializeField]
-    private int nextSpawnPoint;
     public Material mymaterial;
-    public Text nickName;
     [SerializeField]
     private Rigidbody rb;
     private int snapfingerid;
     private float timer;
-
-    public int NextSpawnPoint
-    {
-        get
-        {
-            return nextSpawnPoint;
-        }
-
-        set
-        {
-            if(value > 3 || value < 0)
-            {
-                nextSpawnPoint = 0;
-            }
-            else
-            {
-            nextSpawnPoint = value;
-            }
-        }
-    }
 #if UNITY_ANDROID
     public RectTransform ui;
 #endif
@@ -49,14 +25,6 @@ public class MoveBehaviour : NetworkBehaviour {
 
     private void Start()
     {
-        if (spawnPoints == null)
-        {
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("Spawn Point");
-            foreach (GameObject _startPosition in temp)
-            {
-                spawnPoints.Add(_startPosition.transform);
-            }
-        }
 #if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif
@@ -122,21 +90,5 @@ public class MoveBehaviour : NetworkBehaviour {
         timer += Time.deltaTime;
     }
 #endif
-    }
-    public override void OnStartClient()
-    {
-        rb.transform.position = spawnPoints[NextSpawnPoint].transform.position;
-        rb.transform.rotation = spawnPoints[NextSpawnPoint].transform.rotation;
-        NextSpawnPoint++;
-        nickName.text = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<HostGame>().playerName;
-        if (nickName == null)
-        {
-            Debug.Log("Sorry, an Error occrred");
-        }
-        else
-        {
-            PlayerClass.nickname = nickName.text;
-            PlayerClass.nickname = "a";
-        }
     }
 }
