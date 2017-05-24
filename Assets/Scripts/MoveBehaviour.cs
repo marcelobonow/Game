@@ -16,6 +16,10 @@ public class MoveBehaviour : NetworkBehaviour {
     public Material mymaterial;
     [SerializeField]
     private Rigidbody rb;
+    [SerializeField]
+    private GameObject weaponHolder;
+    [SerializeField]
+    private GameObject player;
     private PlayerClass playerClass;
     private int snapfingerid;
     private float timer;
@@ -29,8 +33,17 @@ public class MoveBehaviour : NetworkBehaviour {
 #if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif
-        playerClass = gameObject.GetComponent<PlayerClass>();
+        playerClass = gameObject.transform.GetComponent<PlayerClass>();
         rb = gameObject.GetComponent<Rigidbody>();
+        if(weaponHolder == null)
+        {
+            Debug.Log("Weapon Holder Empty");
+            return;
+        }
+        if(player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
         timer = 0;
         snapfingerid = -1;
         maincamera = Camera.main;
@@ -41,25 +54,25 @@ public class MoveBehaviour : NetworkBehaviour {
 
     void FixedUpdate()
     {
-    if (PauseMenu.IsOn)
-    { 
-        rb.velocity = Vector3.zero;
-        return;
-    }
-    rb.velocity = (new Vector3(
-    CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,0f,
-    CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed));
-    if(Input.GetMouseButtonDown(0))
+        if (PauseMenu.IsOn)
+        { 
+            rb.velocity = Vector3.zero;
+            return;
+        }
+        rb.velocity = (new Vector3(
+        CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * playerClass.speed,0f,
+        CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * playerClass.speed));
+        Ray ray = maincamera.ScreenPointToRay(CrossPlatformInputManager.mousePosition); //Remove if on android
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 100f))//do a raycast in direction of the ground, where it hits is the new end point
         {
-            Ray ray = maincamera.ScreenPointToRay(CrossPlatformInputManager.mousePosition); //Remove if on android
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, 100f))//do a raycast in direction of the ground, where it hits is the new end point
+            Ray RightHeightRay = new Ray(weaponHolder.transform.position, new Vector3(hit.point.x, weaponHolder.transform.position.y, hit.point.z)-weaponHolder.transform.position);
+            player.transform.LookAt(RightHeightRay.GetPoint(playerClass.range));
+                player.transform.eulerAngles = new Vector3(0, player.transform.eulerAngles.y, player.transform.eulerAngles.z);
+            if (Input.GetMouseButton(0)&& (timer>1/playerClass.firerate))
             {
-                Debug.Log(hit.point.x + " "+ hit.point.z);
-
-                Ray RightHeightRay = new Ray(gameObject.transform.position, new Vector3(hit.point.x, 0.5f, hit.point.z)-gameObject.transform.position);
                 GameObject myLine = new GameObject();
-                myLine.transform.position = gameObject.transform.position;
+                myLine.transform.position = weaponHolder.transform.position;
                 myLine.AddComponent<LineRenderer>();
                 LineRenderer lr = myLine.GetComponent<LineRenderer>();
                 lr.material = mymaterial;
@@ -67,15 +80,20 @@ public class MoveBehaviour : NetworkBehaviour {
                 lr.endColor = Color.red;
                 lr.startWidth = 0.1f;
                 lr.endWidth = 0.1f;
-                lr.SetPosition(0, gameObject.transform.position);
-                lr.SetPosition(1, RightHeightRay.GetPoint(gameObject.GetComponent<PlayerClass>().range));//do the line
+                lr.SetPosition(0, weaponHolder.transform.position);
+                lr.SetPosition(1, RightHeightRay.GetPoint(playerClass.range));//do the line
                 GameObject.Destroy(myLine, 0.5f);
-                if (Physics.Raycast(new Ray(gameObject.transform.position, RightHeightRay.direction), out hit, gameObject.GetComponent<PlayerClass>().range))
+            
+                if (Physics.Raycast(new Ray(weaponHolder.transform.position, RightHeightRay.direction), out hit, playerClass.range))
                 {
-                    Debug.Log(hit.transform.name);
+                    if(hit.transform.CompareTag("Player"))
+                    {
+                        CmdPlayerShot("Player" + hit.transform.GetComponent<NetworkIdentity>().netId.ToString(), playerClass.damage);
+                    }
                 }
-            }
         }
+    }
+        timer += Time.deltaTime;
     
 #if UNITY_ANDROID
         if (Input.touchCount > 0)
@@ -125,5 +143,12 @@ public class MoveBehaviour : NetworkBehaviour {
         timer += Time.deltaTime;
     }
 #endif
+    }
+    [Command]
+    void CmdPlayerShot(string _ID, int damage)
+    {
+        Debug.Log(_ID + " has ben shot with " + damage);
+        PlayerClass player = GameManager.GetPlayer(_ID);
+        player.TakeDamage(damage);
     }
 }

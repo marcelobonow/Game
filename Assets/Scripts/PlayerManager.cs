@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerManager : NetworkBehaviour {
+public class PlayerManager : MonoBehaviour {
 
 
 }
