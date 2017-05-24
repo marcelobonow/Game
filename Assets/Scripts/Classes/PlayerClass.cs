@@ -65,31 +65,31 @@ public class PlayerClass : NetworkBehaviour {
         CmdChangeNickName(HostGame.playerName);
         nick.text = _nickName;
         health = maxHealth;
-        HPText.text = "HP: " + health.ToString();
+        CmdChangeHealth(health);
     }
     public void TakeDamage(int amount)
     {
         if (isDead)
             return;
         health -= amount;
-        Debug.Log(transform.name + " Has " + health + " health");
         if(health<=0)
-        { 
+        {
             health = 0;
-            Die();
         }
-        HPText.text = "HP: " + health.ToString();
+        CmdChangeHealth(health);
     }
     private void Die()
     {
-        isDead = true;
-        maincamera.transform.SetParent(gameObject.transform.parent);
-        player.SetActive(false);
-        GetComponent<MoveBehaviour>().enabled = false;
-        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        StartCoroutine(Respawn());
-        Debug.Log("morreu");//remover a camera do parent
-                            //respawnar
+        if(isLocalPlayer)
+        {
+            isDead = true;
+            maincamera.transform.SetParent(gameObject.transform.parent);
+            player.SetActive(false);
+            GetComponent<MoveBehaviour>().enabled = false;
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            StartCoroutine(Respawn());
+        }
+
     }
     IEnumerator Respawn()
     {
@@ -100,11 +100,22 @@ public class PlayerClass : NetworkBehaviour {
     }
     private void FixedUpdate()
     {
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
         nick.text = _nickName;
+        HPText.text = "HP: "+health;
     }
     [Command]
     void CmdChangeNickName(string _value)
     {
         _nickName = _value;
+    }
+    [Command]
+    void CmdChangeHealth(int _value)
+    {
+        health = _value;
     }
 }
