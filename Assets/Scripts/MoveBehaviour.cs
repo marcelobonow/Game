@@ -49,14 +49,6 @@ public class MoveBehaviour : NetworkBehaviour {
         maincamera = Camera.main;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            CmdPlayerShot("Player2", 10);
-        }
-    }
-
     void FixedUpdate()
     {
         if (PauseMenu.IsOn)
