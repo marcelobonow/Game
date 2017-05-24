@@ -61,7 +61,7 @@ public class JoinGame : MonoBehaviour {
             Status.text = "There are no rooms";
         }
     }
-    private void ClearRoomList()
+    public void ClearRoomList()
     {
         for (int i = 0; i < roomList.Count; i++)
         {

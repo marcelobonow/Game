@@ -23,7 +23,7 @@ public class PlayerClass : NetworkBehaviour {
             playerclass = GameManager.playerclass;
             gameObject.name = "Player";
             hostGame = GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<HostGame>();
-            CmdChangeNickName(hostGame.playerName);
+            CmdChangeNickName(HostGame.playerName);
             nick.text = _nickName;
         }
     }

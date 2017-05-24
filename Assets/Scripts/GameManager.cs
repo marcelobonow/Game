@@ -11,6 +11,7 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
+        networkManager = NetworkManager.singleton;
         if (playerclass == null)
         {
             playerclass = "Occultist";

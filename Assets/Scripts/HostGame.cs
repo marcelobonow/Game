@@ -8,9 +8,10 @@ public class HostGame : MonoBehaviour
     private uint roomSize = 4;
     private string roomName;
     public NetworkManager networkManager;
-    public string playerName;
+    public static string playerName;
     public static bool creatingRoom;
     public GameObject NicknameText, RoomNameText,HostButton,RefreshButton;
+    public JoinGame joinGame;
     [SerializeField]
     private Text Status;
 
@@ -44,6 +45,8 @@ public class HostGame : MonoBehaviour
                 NicknameText.SetActive(false);
                 RoomNameText.SetActive(false);
                 RefreshButton.SetActive(false);
+                joinGame.ClearRoomList();
+                Debug.Log(networkManager.matchMaker.isActiveAndEnabled);
                 networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
             }
             else
