@@ -44,7 +44,6 @@ public class JoinGame : MonoBehaviour {
             Status.text = "Couldn't get room list";
             return;
         }
-        
         foreach (MatchInfoSnapshot match in matchList)
         {
             GameObject _roomListItemGO = Instantiate(roomListItemPrefab);
@@ -72,7 +71,7 @@ public class JoinGame : MonoBehaviour {
     }
     public void JoinRoom(MatchInfoSnapshot _match)
     {
-        if(!HostGame.creatingRoom)
+        if(!HostGame.creatingRoom && !JoiningGame)
         {
             JoiningGame = true;
             HostButton.SetActive(false);

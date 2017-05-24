@@ -11,22 +11,21 @@ public class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        networkManager = NetworkManager.singleton;
         if (playerclass == null)
         {
             playerclass = "Occultist";
         }
         if (playerclass.CompareTo("ToggleSoldier") == 0)
         {
-            PlayerDataPush.playerclass = "Soldier";
+            playerclass = "Soldier";
         }
         else if (playerclass.CompareTo("ToggleSniper") == 0)
         {
-            PlayerDataPush.playerclass = "Sniper";
+            playerclass = "Sniper";
         }
         else
         {
-            PlayerDataPush.playerclass = "Occultist";
+            playerclass = "Occultist";
         }
         PauseMenu.IsOn = false;
         pauseMenu.SetActive(false);

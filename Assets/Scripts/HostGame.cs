@@ -7,7 +7,7 @@ public class HostGame : MonoBehaviour
 
     private uint roomSize = 4;
     private string roomName;
-    public static NetworkManager networkManager;
+    public NetworkManager networkManager;
     public string playerName;
     public static bool creatingRoom;
     public GameObject NicknameText, RoomNameText,HostButton,RefreshButton;
@@ -34,7 +34,7 @@ public class HostGame : MonoBehaviour
 
     public void CreateRoom()
     {
-        if (!JoinGame.JoiningGame)
+        if (!JoinGame.JoiningGame && !creatingRoom)
         {
             if (roomName != "" && roomName != null && playerName != "" && playerName != null)
             {

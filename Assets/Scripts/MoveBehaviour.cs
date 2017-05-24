@@ -38,11 +38,11 @@ public class MoveBehaviour : NetworkBehaviour {
 
     void FixedUpdate()
     {
-        if (PauseMenu.IsOn)
-        {
-            rb.velocity = Vector3.zero;
-            return;
-        }
+        //if (PauseMenu.IsOn)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //    return;
+        //}
        rb.velocity = (new Vector3(
             CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,
             0f,

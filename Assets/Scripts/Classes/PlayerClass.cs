@@ -30,7 +30,6 @@ public class PlayerClass : NetworkBehaviour {
     private void FixedUpdate()
     {
         nick.text = _nickName;
-        
     }
     [Command]
     void CmdChangeNickName(string _value)
