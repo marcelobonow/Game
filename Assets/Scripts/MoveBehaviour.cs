@@ -47,9 +47,14 @@ public class MoveBehaviour : NetworkBehaviour {
         timer = 0;
         snapfingerid = -1;
         maincamera = Camera.main;
-        maincamera.transform.SetParent(gameObject.transform);
-        maincamera.transform.position = new Vector3(gameObject.transform.position.x, 10f,gameObject.transform.position.z);
-        maincamera.orthographicSize = playerClass.range * 1.5f;
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            CmdPlayerShot("Player2", 10);
+        }
     }
 
     void FixedUpdate()
