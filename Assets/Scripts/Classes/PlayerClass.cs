@@ -20,6 +20,8 @@ public class PlayerClass : NetworkBehaviour {
     public static string playerclass;
     public HostGame hostGame;
     private NetworkManager networkManager;
+    [SerializeField]
+    private Text HPText;
     [SyncVar]
     [SerializeField]
     private bool _isDead = false;
@@ -56,12 +58,14 @@ public class PlayerClass : NetworkBehaviour {
         isDead = false;
         player.SetActive(true);
         maincamera.transform.SetParent(gameObject.transform);
-        maincamera.transform.position = new Vector3(gameObject.transform.position.x, 10f, gameObject.transform.position.z);
         maincamera.orthographicSize = range * 1.5f;
+        maincamera.transform.localScale = new Vector3(1, 1, 1);
+        maincamera.transform.position = new Vector3(gameObject.transform.position.x, 40f, gameObject.transform.position.z);
         GetComponent<MoveBehaviour>().enabled = true;
         CmdChangeNickName(HostGame.playerName);
         nick.text = _nickName;
         health = maxHealth;
+        HPText.text = "HP: " + health.ToString();
     }
     public void TakeDamage(int amount)
     {
@@ -74,6 +78,7 @@ public class PlayerClass : NetworkBehaviour {
             health = 0;
             Die();
         }
+        HPText.text = "HP: " + health.ToString();
     }
     private void Die()
     {
@@ -81,6 +86,7 @@ public class PlayerClass : NetworkBehaviour {
         maincamera.transform.SetParent(gameObject.transform.parent);
         player.SetActive(false);
         GetComponent<MoveBehaviour>().enabled = false;
+        gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         StartCoroutine(Respawn());
         Debug.Log("morreu");//remover a camera do parent
                             //respawnar
