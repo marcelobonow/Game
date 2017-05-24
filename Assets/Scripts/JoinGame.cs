@@ -6,6 +6,8 @@ using UnityEngine.Networking.Match;
 
 public class JoinGame : MonoBehaviour {
 
+    public static bool JoiningGame;
+    public GameObject NicknameText, RoomNameText, HostButton,RefreshButton;
     private List<GameObject> roomList = new List<GameObject>();
     [SerializeField]
     private GameObject roomListItemPrefab;
@@ -26,9 +28,12 @@ public class JoinGame : MonoBehaviour {
 
     public void RefreshRoomList()
     {
-        Status.text = "Loading...";
-        ClearRoomList();
-        NetworkManager.singleton.matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchlist);
+        if(!HostGame.creatingRoom)
+        {
+            Status.text = "Loading...";
+            ClearRoomList();
+            NetworkManager.singleton.matchMaker.ListMatches(0, 10, "", true, 0, 0, OnMatchlist);
+        }
     }
 
     public void OnMatchlist (bool sucess, string extendedInfo, List<MatchInfoSnapshot> matchList)
@@ -67,8 +72,21 @@ public class JoinGame : MonoBehaviour {
     }
     public void JoinRoom(MatchInfoSnapshot _match)
     {
-        Status.text = "Joining...";
-        networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
-        ClearRoomList();
+        if(!HostGame.creatingRoom)
+        {
+            JoiningGame = true;
+            HostButton.SetActive(false);
+            NicknameText.SetActive(false);
+            RoomNameText.SetActive(false);
+            RefreshButton.SetActive(false);
+            Status.text = "Joining...";
+            networkManager.matchMaker.JoinMatch(_match.networkId, "", "", "", 0, 0, networkManager.OnMatchJoined);
+            ClearRoomList();
+        }
+        else
+        {
+            Status.text = "Wait for the room to be created";
+        }
+       
     }
 }

@@ -31,14 +31,19 @@ public class MoveBehaviour : NetworkBehaviour {
         rb = gameObject.GetComponent<Rigidbody>();
         timer = 0;
         snapfingerid = -1;
-
-        //maincamera = Camera.main;
-        //maincamera.transform.SetParent(gameObject.transform);
+        maincamera = Camera.main;
+        maincamera.transform.SetParent(gameObject.transform);
+        maincamera.transform.position = new Vector3(gameObject.transform.position.x, 10f,gameObject.transform.position.z);
     }
 
     void FixedUpdate()
     {
-        gameObject.GetComponent<Rigidbody>().velocity = (new Vector3(
+        if (PauseMenu.IsOn)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+       rb.velocity = (new Vector3(
             CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,
             0f,
             CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed));
