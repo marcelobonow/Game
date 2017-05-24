@@ -23,20 +23,9 @@ Platform assembly: C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data
 Loading C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data\Managed\nunit.framework.dll into Unity Child Domain
 Platform assembly: C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.053 seconds
+- Completed reload, in  0.071 seconds
 Platform assembly: C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: C:\Users\Marcelo\Documents\Unity\Lovelace\Binary\Release_Data\Managed\System.dll (this message is harmless)
 desktop: 2560x1080 60Hz; virtual: 3840x1415 at -1280,0
 <RI> Initializing input.
 <RI> Input initialized.
-<RI> Initialized touch support.
-UnloadTime: 3.451888 ms
-MatchMakingClient ListMatches :https://mm.unet.unity3d.com/json/reply/ListMatchRequest
- 
-(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
-
-Setting up 4 worker threads for Enlighten.
-  Thread -> id: 3e08 -> priority: 1 
-  Thread -> id: 4408 -> priority: 1 
-  Thread -> id: 4404 -> priority: 1 
-  Thread -> id: 18bc -> priority: 1 
