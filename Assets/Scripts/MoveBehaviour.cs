@@ -16,6 +16,7 @@ public class MoveBehaviour : NetworkBehaviour {
     public Material mymaterial;
     [SerializeField]
     private Rigidbody rb;
+    private PlayerClass playerClass;
     private int snapfingerid;
     private float timer;
 #if UNITY_ANDROID
@@ -28,25 +29,54 @@ public class MoveBehaviour : NetworkBehaviour {
 #if UNITY_ANDROID
         ui = GameObject.FindGameObjectWithTag("GameController").GetComponent<RectTransform>();
 #endif
+        playerClass = gameObject.GetComponent<PlayerClass>();
         rb = gameObject.GetComponent<Rigidbody>();
         timer = 0;
         snapfingerid = -1;
         maincamera = Camera.main;
         maincamera.transform.SetParent(gameObject.transform);
         maincamera.transform.position = new Vector3(gameObject.transform.position.x, 10f,gameObject.transform.position.z);
+        maincamera.orthographicSize = playerClass.range * 1.5f;
     }
 
     void FixedUpdate()
     {
-        //if (PauseMenu.IsOn)
-        //{
-        //    rb.velocity = Vector3.zero;
-        //    return;
-        //}
-       rb.velocity = (new Vector3(
-            CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,
-            0f,
-            CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed));
+    if (PauseMenu.IsOn)
+    { 
+        rb.velocity = Vector3.zero;
+        return;
+    }
+    rb.velocity = (new Vector3(
+    CrossPlatformInputManager.GetAxis("Horizontal") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed,0f,
+    CrossPlatformInputManager.GetAxis("Vertical") * Time.deltaTime * 100 * gameObject.GetComponent<PlayerClass>().speed));
+    if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = maincamera.ScreenPointToRay(CrossPlatformInputManager.mousePosition); //Remove if on android
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f))//do a raycast in direction of the ground, where it hits is the new end point
+            {
+                Debug.Log(hit.point.x + " "+ hit.point.z);
+
+                Ray RightHeightRay = new Ray(gameObject.transform.position, new Vector3(hit.point.x, 0.5f, hit.point.z)-gameObject.transform.position);
+                GameObject myLine = new GameObject();
+                myLine.transform.position = gameObject.transform.position;
+                myLine.AddComponent<LineRenderer>();
+                LineRenderer lr = myLine.GetComponent<LineRenderer>();
+                lr.material = mymaterial;
+                lr.startColor = Color.red;
+                lr.endColor = Color.red;
+                lr.startWidth = 0.1f;
+                lr.endWidth = 0.1f;
+                lr.SetPosition(0, gameObject.transform.position);
+                lr.SetPosition(1, RightHeightRay.GetPoint(gameObject.GetComponent<PlayerClass>().range));//do the line
+                GameObject.Destroy(myLine, 0.5f);
+                if (Physics.Raycast(new Ray(gameObject.transform.position, RightHeightRay.direction), out hit, gameObject.GetComponent<PlayerClass>().range))
+                {
+                    Debug.Log(hit.transform.name);
+                }
+            }
+        }
+    
 #if UNITY_ANDROID
         if (Input.touchCount > 0)
         {

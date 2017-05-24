@@ -37,7 +37,6 @@ public class GameManager : NetworkBehaviour
         {
             pauseMenu.SetActive(!pauseMenu.activeSelf);
             PauseMenu.IsOn = pauseMenu.activeSelf;
-            Debug.Log(PauseMenu.IsOn);
         }
     }
     public void LeaveRoom()

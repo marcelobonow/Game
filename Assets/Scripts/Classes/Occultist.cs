@@ -7,6 +7,6 @@ public class Occultist : PlayerClass {
 	public Occultist()
     {
         speed = 10f;
-        range = 20f;
+        range = 200f;
     }
 }

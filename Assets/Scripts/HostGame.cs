@@ -46,7 +46,6 @@ public class HostGame : MonoBehaviour
                 RoomNameText.SetActive(false);
                 RefreshButton.SetActive(false);
                 joinGame.ClearRoomList();
-                Debug.Log(networkManager.matchMaker.isActiveAndEnabled);
                 networkManager.matchMaker.CreateMatch(roomName, roomSize, true, "", "", "", 0, 0, networkManager.OnMatchCreate);
             }
             else
